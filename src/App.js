@@ -8,6 +8,7 @@ function App() {
   const [activeItems, setActiveItems] = useState(["Active Items"]);
   const [completedItems, setCompletedItems] = useState(["Completed Items"]);
   const [isChecked, setIsChecked] = useState(false);
+  
   const handleAdd = (event) => {
     event.preventDefault()
     console.log(input)
@@ -26,6 +27,22 @@ function App() {
     !isChecked && setCompletedItems(prev => {return [...prev, input]})
     const updatedActiveItems = activeItems.filter(i => i !== input)
     !isChecked && setActiveItems(updatedActiveItems)
+  }
+
+  const deleteItems = (input) => {
+    const updatedCompletedItems = completedItems.filter(i => i !== input)
+    setCompletedItems(updatedCompletedItems)
+  }
+
+  const handleCheckDelete = (event) => {
+    const iC = event.target.checked
+    const valueName = event.target.value
+    console.log(iC)
+    console.log(valueName)
+  }
+
+  const deleteGroupItems = () => {
+    
   }
 
   let content = 
@@ -63,12 +80,12 @@ function App() {
     <div>
       {completedItems.map(i => {return (
         <div className='checklist'>
-          <input type="checkbox" key={i} value={isChecked}></input>
+          <input type="checkbox" key={i} value={i} onChange={handleCheckDelete}></input>
           <div>{i}</div>
-          <button type='button'></button>
+          <button type='button' onClick={() => {deleteItems(i)}}></button>
         </div>  
       )})}
-      <button type='button' ></button>
+      <button type='button'></button>
   </div>
   }
 
